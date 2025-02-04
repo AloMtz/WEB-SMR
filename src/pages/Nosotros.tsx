@@ -1,4 +1,6 @@
 import { Award, Users, Building2, Target } from 'lucide-react';
+import logmineImg from '../assets/logmine.jpg'; 
+
 
 export default function Nosotros() {
   return (
@@ -16,7 +18,7 @@ export default function Nosotros() {
           <div>
             <h2 className="text-3xl font-bold mb-6">Nuestra Historia</h2>
             <p className="text-gray-600 mb-4">
-              Fundada en 2003, SMR Heavy Maq nació con la visión de proporcionar servicios de mantenimiento de alta calidad para el sector de maquinaria pesada en España.
+              Fundada en 2003, SMR Heavy Maq nació con la visión de proporcionar servicios de mantenimiento de alta calidad para el sector de maquinaria.
             </p>
             <p className="text-gray-600">
               A lo largo de los años, hemos crecido hasta convertirnos en un referente en el sector, manteniendo siempre nuestro compromiso con la excelencia y la satisfacción del cliente.
@@ -24,7 +26,7 @@ export default function Nosotros() {
           </div>
           <div className="relative h-96">
             <img
-              src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80"
+               src={logmineImg}
               alt="Instalaciones SMR Heavy Maq"
               className="w-full h-full object-cover rounded-lg shadow-lg"
             />

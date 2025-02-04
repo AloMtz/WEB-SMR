@@ -81,7 +81,7 @@ export default function Contacto() {
                   <Phone className="h-6 w-6 text-red-600 mr-4 flex-shrink-0" />
                   <div>
                     <h3 className="font-medium">Teléfono</h3>
-                    <p className="text-gray-600">900 123 456</p>
+                    <p className="text-gray-600">618 184 6362</p>
                     <p className="text-gray-600">+34 91 234 56 78</p>
                   </div>
                 </div>
@@ -89,7 +89,7 @@ export default function Contacto() {
                   <Mail className="h-6 w-6 text-red-600 mr-4 flex-shrink-0" />
                   <div>
                     <h3 className="font-medium">Correo Electrónico</h3>
-                    <p className="text-gray-600">contacto@smrheavymaq.es</p>
+                    <p className="text-gray-600">simental.logmine@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -110,7 +110,7 @@ export default function Contacto() {
                     <p className="text-gray-600">
                       Lunes a Viernes: 8:00 - 20:00
                       <br />
-                      Servicio de Emergencia: 24/7
+                     
                     </p>
                   </div>
                 </div>

@@ -1,5 +1,12 @@
 import { Wrench, Truck, Settings, PenTool as Tool, HardHat, Gauge } from 'lucide-react';
 import { Servicio } from '../types';
+import soldaduraImg from '../assets/soldadura.jpg';
+import trailaImg from '../assets/traila.jpg';
+import Fabri from '../assets/fabricacion.jpg';
+import Maqui from '../assets/maq.jpg';
+import DiseñoImg from '../assets/diseño.mp4';
+import DiaImg from '../assets/Diagnostico.jpg';
+
 
 const servicios: Servicio[] = [
   {
@@ -7,21 +14,42 @@ const servicios: Servicio[] = [
     titulo: 'Mantenimiento Preventivo',
     descripcion: 'Programas personalizados de mantenimiento para prevenir averías y optimizar el rendimiento de su maquinaria.',
     icono: 'wrench',
-    imagen: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80'
+    imagen: Maqui
   },
   {
     id: '2',
     titulo: 'Reparación de Emergencia',
     descripcion: 'Servicio de respuesta rápida 24/7 para minimizar el tiempo de inactividad de su equipo.',
     icono: 'truck',
-    imagen: 'https://images.unsplash.com/photo-1599686916453-e08a14d1d3c6?auto=format&fit=crop&q=80'
+    imagen: Fabri
   },
   {
     id: '3',
     titulo: 'Diagnóstico Especializado',
     descripcion: 'Análisis detallado y diagnóstico preciso utilizando tecnología de última generación.',
     icono: 'settings',
-    imagen: 'https://images.unsplash.com/photo-1581093458791-9d42e3c7e935?auto=format&fit=crop&q=80'
+    imagen: DiaImg
+  },
+  {
+    id: '4',
+    titulo: 'Diseño y Fabricación de Piezas Especiales',
+    descripcion: 'Fabricamos piezas a medida para cubrir las necesidades específicas de su maquinaria, garantizando la calidad y durabilidad.',
+    icono: 'pen-tool',
+    imagen: DiseñoImg
+  },
+  {
+    id: '5',
+    titulo: 'Soldadura',
+    descripcion: 'Ofrecemos servicios de soldadura de alta calidad para asegurar la integridad de las estructuras y componentes de su maquinaria.',
+    icono: 'hard-hat',
+    imagen: soldaduraImg
+  },
+  {
+    id: '6',
+    titulo: 'Fabricación de Trailas',
+    descripcion: 'Fabricamos trailas resistentes y de alta calidad, adaptadas a sus necesidades específicas de transporte de maquinaria.',
+    icono: 'gauge',
+    imagen: trailaImg
   }
 ];
 
@@ -33,6 +61,12 @@ const IconComponent = (iconName: string) => {
       return <Truck className="h-8 w-8" />;
     case 'settings':
       return <Settings className="h-8 w-8" />;
+    case 'hard-hat':
+      return <HardHat className="h-8 w-8" />;
+    case 'pen-tool':
+      return <Tool className="h-8 w-8" />;
+    case 'gauge':
+      return <Gauge className="h-8 w-8" />;
     default:
       return <Tool className="h-8 w-8" />;
   }
@@ -46,7 +80,7 @@ export default function Servicios() {
         <div className="text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Nuestros Servicios</h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Ofrecemos soluciones integrales para el mantenimiento y reparación de maquinaria pesada
+            Ofrecemos soluciones integrales para el mantenimiento y reparación de maquinaria pesada.
           </p>
         </div>
 
@@ -58,11 +92,18 @@ export default function Servicios() {
               className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
             >
               <div className="relative h-48">
-                <img
-                  src={servicio.imagen}
-                  alt={servicio.titulo}
-                  className="w-full h-full object-cover"
-                />
+                {servicio.imagen.endsWith('.mp4') ? (
+                  <video controls className="w-full h-full object-cover">
+                    <source src={servicio.imagen} type="video/mp4" />
+                    Tu navegador no soporta el video.
+                  </video>
+                ) : (
+                  <img
+                    src={servicio.imagen}
+                    alt={servicio.titulo}
+                    className="w-full h-full object-cover"
+                  />
+                )}
               </div>
               <div className="p-6">
                 <div className="flex items-center mb-4">

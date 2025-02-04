@@ -46,13 +46,13 @@ export default function Footer() {
               <li className="flex items-center">
                 <Phone className="h-5 w-5 mr-2" />
                 <a href="tel:+34900123456" className="text-gray-400 hover:text-white">
-                  900 123 456
+                  618 184 6362
                 </a>
               </li>
               <li className="flex items-center">
                 <Mail className="h-5 w-5 mr-2" />
-                <a href="mailto:contacto@smrheavymaq.es" className="text-gray-400 hover:text-white">
-                  contacto@smrheavymaq.es
+                <a href="mailto:simental.logmine@gmail.com" className="text-gray-400 hover:text-white">
+                simental.logmine@gmail.com
                 </a>
               </li>
               <li className="flex items-center">

@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { Proyecto } from '../types';
+import Exca from '../assets/excavadora.jpg';
+import trailaImg from '../assets/traila.jpg';
+import DiseñoImg from '../assets/diseño.mp4';
 
 const proyectos: Proyecto[] = [
   {
@@ -7,21 +10,21 @@ const proyectos: Proyecto[] = [
     titulo: 'Rehabilitación de Excavadora CAT 320',
     descripcion: 'Restauración completa del sistema hidráulico y motor de excavadora para importante empresa constructora.',
     categoria: 'Rehabilitación',
-    imagen: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80'
+    imagen: Exca
   },
   {
     id: '2',
-    titulo: 'Mantenimiento Preventivo Flota',
-    descripcion: 'Programa de mantenimiento preventivo para flota de 20 máquinas de construcción.',
+    titulo: 'Fabricación de Tráila',
+    descripcion: 'Desde el diseño hasta la entrega final, nos aseguramos de que cada detalle cumpliera con sus requerimientos de capacidad, resistencia y funcionalidad.',
     categoria: 'Mantenimiento',
-    imagen: 'https://images.unsplash.com/photo-1599686916453-e08a14d1d3c6?auto=format&fit=crop&q=80'
+    imagen: trailaImg
   },
   {
     id: '3',
     titulo: 'Actualización Sistema Hidráulico',
     descripcion: 'Modernización del sistema hidráulico en grúa industrial para mejorar eficiencia y rendimiento.',
     categoria: 'Modernización',
-    imagen: 'https://images.unsplash.com/photo-1581093458791-9d42e3c7e935?auto=format&fit=crop&q=80'
+    imagen: DiseñoImg
   }
 ];
 
@@ -40,26 +43,22 @@ export default function Proyectos() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Nuestros Proyectos</h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Descubra algunos de nuestros trabajos más destacados en mantenimiento y reparación de maquinaria pesada
+            Descubra algunos de nuestros trabajos más destacados en mantenimiento y reparación de maquinaria pesada.
           </p>
         </div>
 
-        {/* Filtros */}
-        <div className="flex justify-center mb-12">
-          <div className="inline-flex rounded-md shadow-sm">
+        {/* Filtros con un diseño más atractivo */}
+        <div className="flex justify-center mb-12 space-x-4">
+          <div className="inline-flex rounded-full shadow-md overflow-hidden">
             {categorias.map((categoria) => (
               <button
                 key={categoria}
                 onClick={() => setCategoriaActiva(categoria)}
                 className={`
-                  px-4 py-2 text-sm font-medium
+                  px-6 py-3 text-sm font-medium rounded-full transition-all duration-300 
                   ${categoriaActiva === categoria
-                    ? 'bg-red-600 text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-50'
-                  }
-                  ${categoria === categorias[0] ? 'rounded-l-md' : ''}
-                  ${categoria === categorias[categorias.length - 1] ? 'rounded-r-md' : ''}
-                  border border-gray-200
+                    ? 'bg-red-600 text-white shadow-lg transform scale-105'
+                    : 'bg-gray-200 text-gray-700 hover:bg-red-200 hover:text-red-700'}
                 `}
               >
                 {categoria}
@@ -76,11 +75,21 @@ export default function Proyectos() {
               className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
             >
               <div className="relative h-64">
-                <img
-                  src={proyecto.imagen}
-                  alt={proyecto.titulo}
-                  className="w-full h-full object-cover"
-                />
+                {proyecto.imagen.endsWith('.mp4') ? (
+                  <video
+                    src={proyecto.imagen}
+                    className="w-full h-full object-cover"
+                    controls
+                    autoPlay
+                    loop
+                  />
+                ) : (
+                  <img
+                    src={proyecto.imagen}
+                    alt={proyecto.titulo}
+                    className="w-full h-full object-cover"
+                  />
+                )}
                 <div className="absolute top-4 right-4">
                   <span className="bg-red-600 text-white px-3 py-1 rounded-full text-sm">
                     {proyecto.categoria}

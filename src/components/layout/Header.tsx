@@ -74,14 +74,14 @@ export default function Header() {
                 className={`${linkClasses} flex items-center btn-hover`}
               >
                 <Phone className="h-5 w-5 mr-2" />
-                <span className="text-sm">900 123 456</span>
+                <span className="text-sm">618 184 6362</span>
               </a>
               <a 
-                href="mailto:contacto@smrheavymaq.es" 
+                href="mailto:simental.logmine@gmail.com?subject=Consulta%20sobre%20servicios&body=Hola,%20me%20gustaría%20obtener%20más%20información%20sobre%20sus%20servicios."
                 className={`${linkClasses} flex items-center btn-hover`}
               >
-                <Mail className="h-5 w-5 mr-2" />
-                <span className="text-sm">contacto@smrheavymaq.es</span>
+                 <Mail className="h-5 w-5 mr-2" />
+                 <span className="text-sm">simental.logmine@gmail.com</span>
               </a>
             </div>
           </div>

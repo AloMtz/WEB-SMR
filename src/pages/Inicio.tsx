@@ -1,5 +1,7 @@
 import { ArrowRight, Shield, Clock, PenTool as Tool } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import miImagen from '../assets/sol1.jpg';  // Ajusta la ruta según la ubicación real
+
 
 export default function Inicio() {
   return (
@@ -9,7 +11,7 @@ export default function Inicio() {
         <div 
           className="absolute top-0 left-0 w-full h-full z-0"
           style={{
-            backgroundImage: 'url("https://images.unsplash.com/photo-1498084393753-b411b2d26b34?auto=format&fit=crop&q=80&w=1920")',
+            backgroundImage: `url(${miImagen})`,  // Aquí se usa la imagen importada
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
