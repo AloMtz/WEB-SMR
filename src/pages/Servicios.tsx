@@ -93,7 +93,7 @@ export default function Servicios() {
             >
               <div className="relative h-48">
                 {servicio.imagen.endsWith('.mp4') ? (
-                  <video controls className="w-full h-full object-cover">
+                  <video className="w-full h-full object-cover" loop muted autoPlay playsInline controls={false}> 
                     <source src={servicio.imagen} type="video/mp4" />
                     Tu navegador no soporta el video.
                   </video>

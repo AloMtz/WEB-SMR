@@ -29,3 +29,11 @@ export interface Testimonio {
   calificacion: number;
   imagen: string;
 }
+
+export interface GalleryItem {
+  id: string;
+  type: 'image' | 'video';
+  url: string;
+  title: string;
+  size: 'small' | 'large' | 'wide' | 'tall';
+}

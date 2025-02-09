@@ -48,14 +48,14 @@ export default function Proyectos() {
         </div>
 
         {/* Filtros con un diseño más atractivo */}
-        <div className="flex justify-center mb-12 space-x-4">
-          <div className="inline-flex rounded-full shadow-md overflow-hidden">
+        <div className="flex justify-center mb-12">
+          <div className="flex flex-wrap justify-center rounded-full overflow-visible gap-3">
             {categorias.map((categoria) => (
               <button
                 key={categoria}
                 onClick={() => setCategoriaActiva(categoria)}
                 className={`
-                  px-6 py-3 text-sm font-medium rounded-full transition-all duration-300 
+                  px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300 
                   ${categoriaActiva === categoria
                     ? 'bg-red-600 text-white shadow-lg transform scale-105'
                     : 'bg-gray-200 text-gray-700 hover:bg-red-200 hover:text-red-700'}
@@ -79,9 +79,11 @@ export default function Proyectos() {
                   <video
                     src={proyecto.imagen}
                     className="w-full h-full object-cover"
-                    controls
+                    controls={false}
                     autoPlay
                     loop
+                    muted
+                    playsInline
                   />
                 ) : (
                   <img

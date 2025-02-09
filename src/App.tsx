@@ -8,6 +8,7 @@ import Nosotros from './pages/Nosotros';
 import Proyectos from './pages/Proyectos';
 import Testimonios from './pages/Testimonios';
 import Contacto from './pages/Contacto';
+import Galeria from './pages/Galeria';
 
 function App() {
   return (
@@ -18,25 +19,29 @@ function App() {
           <div className="pages-container">
             <Routes>
               <Route path="/" element={<Inicio />} />
-              <Route 
-                path="/servicios" 
-                element={<div className="pt-20"><Servicios /></div>} 
+              <Route
+                path="/servicios"
+                element={<div className="pt-20"><Servicios /></div>}
               />
-              <Route 
-                path="/nosotros" 
-                element={<div className="pt-20"><Nosotros /></div>} 
+              <Route
+                path="/nosotros"
+                element={<div className="pt-20"><Nosotros /></div>}
               />
-              <Route 
-                path="/proyectos" 
-                element={<div className="pt-20"><Proyectos /></div>} 
+              <Route
+                path="/proyectos"
+                element={<div className="pt-20"><Proyectos /></div>}
               />
-              <Route 
-                path="/testimonios" 
-                element={<div className="pt-20"><Testimonios /></div>} 
+              <Route
+                path="/testimonios"
+                element={<div className="pt-20"><Testimonios /></div>}
               />
-              <Route 
-                path="/contacto" 
-                element={<div className="pt-20"><Contacto /></div>} 
+              <Route
+                path="/galeria"
+                element={<div className="pt-20"><Galeria /></div>}
+              />
+              <Route
+                path="/contacto"
+                element={<div className="pt-20"><Contacto /></div>}
               />
             </Routes>
           </div>
