@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, Mail } from 'lucide-react';
 import { NavItem } from '../../types';
-import Logo from '../../assets/logo.jpeg';
-import LogoDark from '../../assets/LogoSMR.png';
+import LogoSMR_WH from '../../assets/LogoSMR-WH.png';
+import Logo from "../../assets/LogoSMR.png"
 
 const navegacion: NavItem[] = [
   { label: 'Inicio', href: '/' },
@@ -65,9 +65,9 @@ export default function Header() {
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center">
               <img
-                src={LogoDark}
+                src={shouldBeTransparent ? LogoSMR_WH : Logo}
                 alt="SMR Heavy Maq"
-                className={`h-12 transition-all duration-150 ease-out ${shouldBeTransparent ? 'brightness-100' : 'brightness-100'
+                className={`h-20 transition-all duration-150 ease-out ${shouldBeTransparent ? 'brightness-100' : 'brightness-100'
                   }`}
               />
             </Link>

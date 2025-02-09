@@ -1,6 +1,6 @@
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import Logo from "../../assets/logo.jpeg"
+import Logo from "../../assets/LogoSMR-WH.png"
 
 export default function Footer() {
   return (
@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <img src={Logo} alt="SMR Heavy Maq" className="h-12 mb-4" />
+            <img src={Logo} alt="SMR Heavy Maq" className="h-16 mb-4" />
             <p className="text-gray-400">
               Servicios profesionales de reparación y mantenimiento de maquinaria pesada en los que puede confiar.
             </p>
