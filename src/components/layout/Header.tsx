@@ -93,7 +93,9 @@ export default function Header() {
                 className={`${getLinkClasses('')} flex items-center btn-hover`}
               >
                 <Phone className="h-5 w-5 mr-2" />
-                <span className="text-sm">900 123 456</span>
+                <span className="text-sm">618 129 3830
+
+</span>
               </a>
               <a
                 href="mailto:contacto@smrheavymaq.es"

@@ -46,21 +46,21 @@ export default function Footer() {
               <li className="flex items-center">
                 <Phone className="h-5 w-5 mr-2" />
                 <a href="tel:+34900123456" className="text-gray-400 hover:text-white">
-                  618 184 6362
+                618 129 3830
                 </a>
               </li>
               <li className="flex items-center">
                 <Mail className="h-5 w-5 mr-2" />
                 <a href="mailto:simental.logmine@gmail.com" className="text-gray-400 hover:text-white">
-                simental.logmine@gmail.com
+                contacto@smrheavymaq.es
                 </a>
               </li>
               <li className="flex items-center">
                 <MapPin className="h-5 w-5 mr-2" />
                 <span className="text-gray-400">
-                  Polígono Industrial Las Américas,
+                  #100 Carretera Mazatlan 15 de Mayo Tapias
                   <br />
-                  28823 Madrid, España
+                  Calle Elena Centeno
                 </span>
               </li>
             </ul>

@@ -81,15 +81,14 @@ export default function Contacto() {
                   <Phone className="h-6 w-6 text-red-600 mr-4 flex-shrink-0" />
                   <div>
                     <h3 className="font-medium">Teléfono</h3>
-                    <p className="text-gray-600">618 184 6362</p>
-                    <p className="text-gray-600">+34 91 234 56 78</p>
+                    <p className="text-gray-600">618 129 3830</p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <Mail className="h-6 w-6 text-red-600 mr-4 flex-shrink-0" />
                   <div>
                     <h3 className="font-medium">Correo Electrónico</h3>
-                    <p className="text-gray-600">simental.logmine@gmail.com</p>
+                    <p className="text-gray-600">contacto@smrheavymaq.es</p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -97,9 +96,9 @@ export default function Contacto() {
                   <div>
                     <h3 className="font-medium">Dirección</h3>
                     <p className="text-gray-600">
-                      Polígono Industrial Las Américas,
+                      #100 Carretera Mazatlán 15 de Mayo Tapias,
                       <br />
-                      28823 Madrid, España
+                      Calle Elena Centeno
                     </p>
                   </div>
                 </div>
@@ -109,17 +108,21 @@ export default function Contacto() {
                     <h3 className="font-medium">Horario de Atención</h3>
                     <p className="text-gray-600">
                       Lunes a Viernes: 8:00 - 20:00
-                      <br />
-                     
                     </p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Mapa */}
-            <div className="bg-gray-200 rounded-lg h-64 flex items-center justify-center">
-              <p className="text-gray-600">Mapa de ubicación</p>
+            {/* Mapa de Google Maps */}
+            <div className="bg-gray-200 rounded-lg overflow-hidden">
+              <iframe
+                className="w-full h-64"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3645.0594552144707!2d-104.7121209!3d23.9936775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x869bc62813178497%3A0xbbc3b34709d988cd!2sCalle%20Elena%20Centeno%2C%2034103%20Durango%2C%20Dgo.!5e0!3m2!1ses!2smx!4v1739155506902!5m2!1ses!2smx"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
             </div>
           </div>
         </div>
