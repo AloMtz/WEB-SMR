@@ -9,6 +9,8 @@ import Proyectos from './pages/Proyectos';
 import Testimonios from './pages/Testimonios';
 import Contacto from './pages/Contacto';
 import Galeria from './pages/Galeria';
+import Blog from './pages/Blog';
+import BlogPostPage from './pages/BlogPost';
 
 function App() {
   return (
@@ -42,6 +44,14 @@ function App() {
               <Route
                 path="/contacto"
                 element={<div className="pt-20"><Contacto /></div>}
+              />
+              <Route
+                path="/blog"
+                element={<div className="pt-20"><Blog /></div>}
+              />
+              <Route
+                path="/blog/:slug"
+                element={<div className="pt-20"><BlogPostPage /></div>}
               />
             </Routes>
           </div>

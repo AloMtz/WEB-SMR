@@ -12,6 +12,7 @@ const navegacion: NavItem[] = [
   { label: 'Proyectos', href: '/proyectos' },
   { label: 'Testimonios', href: '/testimonios' },
   { label: 'Galería', href: '/galeria' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Contacto', href: '/contacto' },
 ];
 
@@ -37,8 +38,8 @@ export default function Header() {
   const shouldBeTransparent = isHome && !isScrolled && !menuAbierto;
 
   const headerClasses = `fixed w-full z-50 transition-all duration-150 ease-out ${shouldBeTransparent
-      ? 'bg-transparent'
-      : 'bg-white/95 backdrop-blur-sm shadow-lg'
+    ? 'bg-transparent'
+    : 'bg-white/95 backdrop-blur-sm shadow-lg'
     }`;
 
   const getLinkClasses = (href: string) => {
@@ -93,16 +94,14 @@ export default function Header() {
                 className={`${getLinkClasses('')} flex items-center btn-hover`}
               >
                 <Phone className="h-5 w-5 mr-2" />
-                <span className="text-sm">618 129 3830
-
-</span>
+                <span className="text-sm whitespace-nowrap">618 129 3830</span>
               </a>
               <a
                 href="mailto:contacto@smrheavymaq.es"
                 className={`${getLinkClasses('')} flex items-center btn-hover`}
               >
                 <Mail className="h-5 w-5 mr-2" />
-                <span className="text-sm">contacto@smrheavymaq.es</span>
+                <span className="text-sm whitespace-nowrap">contacto@smrheavymaq.es</span>
               </a>
             </div>
           </div>
@@ -128,8 +127,8 @@ export default function Header() {
       {/* Menú móvil */}
       <div
         className={`md:hidden absolute w-full bg-white/95 backdrop-blur-sm shadow-lg transition-all duration-150 ease-out ${menuAbierto
-            ? 'opacity-100 translate-y-0'
-            : 'opacity-0 -translate-y-4 pointer-events-none'
+          ? 'opacity-100 translate-y-0'
+          : 'opacity-0 -translate-y-4 pointer-events-none'
           }`}
       >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
