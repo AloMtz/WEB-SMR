@@ -1,16 +1,16 @@
 import { Award, Users, Building2, Target } from 'lucide-react';
-import logmineImg from '../assets/logmine.jpg'; 
-
+import logmineImg from '../assets/LogoSMR.png'; 
+import PostImage from '../assets/PostImage_1.jpg';
 
 export default function Nosotros() {
   return (
     <div className="py-12">
-      {/* Historia y Misión */}
+      {/* Historia y Misión */} 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Sobre Nosotros</h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Más de 20 años de experiencia brindando soluciones de mantenimiento y reparación de maquinaria pesada
+            Más de 10 años de experiencia brindando soluciones de mantenimiento y reparación de maquinaria pesada
           </p>
         </div>
 
@@ -18,7 +18,7 @@ export default function Nosotros() {
           <div>
             <h2 className="text-3xl font-bold mb-6">Nuestra Historia</h2>
             <p className="text-gray-600 mb-4">
-              Fundada en 2003, SMR Heavy Maq nació con la visión de proporcionar servicios de mantenimiento de alta calidad para el sector de maquinaria.
+              Fundada en 2013, SMR Heavy Maq nació con la visión de proporcionar servicios de mantenimiento de alta calidad para el sector de maquinaria.
             </p>
             <p className="text-gray-600">
               A lo largo de los años, hemos crecido hasta convertirnos en un referente en el sector, manteniendo siempre nuestro compromiso con la excelencia y la satisfacción del cliente.
@@ -26,7 +26,7 @@ export default function Nosotros() {
           </div>
           <div className="relative h-96">
             <img
-               src={logmineImg}
+              src={logmineImg}
               alt="Instalaciones SMR Heavy Maq"
               className="w-full h-full object-cover rounded-lg shadow-lg"
             />
@@ -64,23 +64,51 @@ export default function Nosotros() {
         <div>
           <h2 className="text-3xl font-bold text-center mb-12">Nuestro Equipo</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((member) => (
-              <div key={member} className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="relative h-64">
-                  <img
-                    src={`https://images.unsplash.com/photo-158109379${member}-9d42e3c7e935?auto=format&fit=crop&q=80`}
-                    alt="Miembro del equipo"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">Técnico Especializado</h3>
-                  <p className="text-gray-600">
-                    Profesional certificado con más de 10 años de experiencia en mantenimiento de maquinaria pesada.
-                  </p>
-                </div>
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div className="relative h-64">
+                <img
+                  src={PostImage}
+                  alt="Equipo de Diagnóstico"
+                  className="w-full h-full object-cover"
+                />
               </div>
-            ))}
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2">Equipo de Diagnóstico</h3>
+                <p className="text-gray-600">
+                  Expertos en identificar fallas con tecnología avanzada, asegurando un análisis preciso y soluciones efectivas para maquinaria pesada.
+                </p>
+              </div>
+            </div>
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div className="relative h-64">
+                <img
+                  src="https://images.unsplash.com/photo-1581093792-9d42e3c7e935?auto=format&fit=crop&q=80"
+                  alt="Equipo de Soldadura"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2">Equipo de Soldadura</h3>
+                <p className="text-gray-600">
+                  Especialistas en técnicas de soldadura de alta precisión, restaurando componentes con durabilidad y resistencia garantizada.
+                </p>
+              </div>
+            </div>
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div className="relative h-64">
+                <img
+                  src="https://images.unsplash.com/photo-1581093793-9d42e3c7e935?auto=format&fit=crop&q=80"
+                  alt="Equipo de Torno"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2">Equipo de Torno</h3>
+                <p className="text-gray-600">
+                  Profesionales en mecanizado, fabricando y reparando piezas con exactitud milimétrica para optimizar el rendimiento de la maquinaria.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
