@@ -8,7 +8,6 @@ import GalleryImage19 from '../assets/Gallery_Image19.jpeg';
 import GalleryImage20 from '../assets/Gallery_Image20.jpeg';
 import Sol from '../assets/sol1.jpg';
 
-
 export default function Inicio() {
   const images = [
     GalleryImage16,
@@ -16,8 +15,8 @@ export default function Inicio() {
     GalleryImage18,
     GalleryImage19,
     GalleryImage20,
-    GalleryImage16,
-    Sol, // Repitiendo la primera imagen para hacer 6
+    GalleryImage16, 
+    Sol,// Repitiendo la primera imagen para hacer 6
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -25,7 +24,7 @@ export default function Inicio() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 4000); // Cambia cada 4 segundos
+    }, 3000); // Cambia cada 4 segundos
 
     return () => clearInterval(interval); // Limpieza del intervalo al desmontar
   }, [images.length]);
@@ -36,7 +35,12 @@ export default function Inicio() {
       <section className="relative h-screen w-full overflow-hidden">
         <div 
           className="absolute top-0 left-0 w-full h-full flex transition-transform duration-1000 ease-in-out"
-          style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
+          style={{
+            transform: `translateX(-${currentImageIndex * 100}%)`,
+            backgroundImage: `url(${GalleryImage16})`, // Fondo predeterminado con la primera imagen
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
         >
           {images.map((image, index) => (
             <div
@@ -46,6 +50,7 @@ export default function Inicio() {
                 backgroundImage: `url(${image})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
+                backgroundColor: 'transparent', // Transparente para permitir que el fondo predeterminado se vea
               }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/60"></div>
