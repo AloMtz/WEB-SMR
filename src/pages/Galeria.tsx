@@ -15,6 +15,13 @@ import GalleryImg10 from '../assets/Gallery_Image10.jpeg';
 import GalleryImg12 from '../assets/Gallery_Image12.jpeg';
 import GalleryImg13 from '../assets/Gallery_Image13.jpeg';
 import GalleryImg14 from '../assets/Gallery_Image14.jpeg';
+import GalleryImg15 from '../assets/Gallery_Image15.jpeg';
+import GalleryImg16 from '../assets/Gallery_Image16.jpeg';
+import GalleryImg17 from '../assets/Gallery_Image17.jpeg';
+import GalleryImg18 from '../assets/Gallery_Image18.jpeg';
+import GalleryImg19 from '../assets/Gallery_Image19.jpeg';
+import GalleryImg20 from '../assets/Gallery_Image20.jpeg';
+
 
 //! Gallery Videos
 import GalleryVideo1 from '../assets/Gallery_Video1.mp4';
@@ -27,7 +34,7 @@ const galleryItems: GalleryItem[] = [
     {
         id: '1',
         type: 'image',
-        url: GalleryImg1,
+        url: GalleryImg15,
         title: 'Reparación de orugas',
         size: 'large'
     },
@@ -41,7 +48,7 @@ const galleryItems: GalleryItem[] = [
     {
         id: '3',
         type: 'image',
-        url: GalleryImg2,
+        url: GalleryImg16,
         title: 'Montaje de eslabones',
         size: 'small' 
     },
@@ -55,14 +62,14 @@ const galleryItems: GalleryItem[] = [
     {
         id: '5',
         type: 'image',
-        url: GalleryImg3,
+        url: GalleryImg17,
         title: 'Motor en proceso de reparación',
         size: 'wide' 
     },
     {
         id: '6',
         type: 'image',
-        url: GalleryImg4,
+        url: GalleryImg18,
         title: 'Motor reconstruido',
         size: 'small' 
     },
@@ -76,14 +83,14 @@ const galleryItems: GalleryItem[] = [
     {
         id: '8',
         type: 'image',
-        url: GalleryImg5,
+        url: GalleryImg19,
         title: 'Operación en cantera',
         size: 'large' 
     },
     {
         id: '9',
         type: 'image',
-        url: GalleryImg6,
+        url: GalleryImg20,
         title: 'Desmontaje de motor',
         size: 'small'
     },
@@ -141,6 +148,48 @@ const galleryItems: GalleryItem[] = [
         type: 'image',
         url: GalleryImg13,
         title: 'Extracción de material',
+        size: 'large'
+    },
+    {
+        id: '18',
+        type: 'image',
+        url: GalleryImg1,
+        title: 'Equipo de Soldadura',
+        size: 'large'
+    },
+    {
+        id: '18',
+        type: 'image',
+        url: GalleryImg2,
+        title: 'Equipo de Soldadura',
+        size: 'large'
+    },
+    {
+        id: '18',
+        type: 'image',
+        url: GalleryImg3,
+        title: 'Equipo de Soldadura',
+        size: 'large'
+    },
+    {
+        id: '18',
+        type: 'image',
+        url: GalleryImg4,
+        title: 'Equipo de Soldadura',
+        size: 'large'
+    },
+    {
+        id: '18',
+        type: 'image',
+        url: GalleryImg5,
+        title: 'Equipo de Soldadura',
+        size: 'large'
+    },
+    {
+        id: '18',
+        type: 'image',
+        url: GalleryImg6,
+        title: 'Equipo de Soldadura',
         size: 'large'
     },
 ];

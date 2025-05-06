@@ -1,22 +1,56 @@
 import { ArrowRight, Shield, Clock, PenTool as Tool } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import miImagen from '../assets/sol1.jpg';  // Ajusta la ruta según la ubicación real
+import { useState, useEffect } from 'react';
+import GalleryImage16 from '../assets/Gallery_Image16.jpeg';
+import GalleryImage17 from '../assets/Gallery_Image17.jpeg';
+import GalleryImage18 from '../assets/Gallery_Image18.jpeg';
+import GalleryImage19 from '../assets/Gallery_Image19.jpeg';
+import GalleryImage20 from '../assets/Gallery_Image20.jpeg';
+import Sol from '../assets/sol1.jpg';
 
 
 export default function Inicio() {
+  const images = [
+    GalleryImage16,
+    GalleryImage17,
+    GalleryImage18,
+    GalleryImage19,
+    GalleryImage20,
+    GalleryImage16,
+    Sol, // Repitiendo la primera imagen para hacer 6
+  ];
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 4000); // Cambia cada 4 segundos
+
+    return () => clearInterval(interval); // Limpieza del intervalo al desmontar
+  }, [images.length]);
+
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative h-screen w-full">
+      <section className="relative h-screen w-full overflow-hidden">
         <div 
-          className="absolute top-0 left-0 w-full h-full z-0"
-          style={{
-            backgroundImage: `url(${miImagen})`,  // Aquí se usa la imagen importada
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
+          className="absolute top-0 left-0 w-full h-full flex transition-transform duration-1000 ease-in-out"
+          style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/60"></div>
+          {images.map((image, index) => (
+            <div
+              key={index}
+              className="w-full h-full flex-shrink-0"
+              style={{
+                backgroundImage: `url(${image})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/60"></div>
+            </div>
+          ))}
         </div>
         
         <div className="relative h-full w-full flex items-center z-10">

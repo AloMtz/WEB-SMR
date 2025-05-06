@@ -1,6 +1,8 @@
 import { Award, Users, Building2, Target } from 'lucide-react';
 import logmineImg from '../assets/LogoSMR.png'; 
-import PostImage from '../assets/PostImage_1.jpg';
+import PostImage from '../assets/diagnostico.jpeg';
+import Solda from '../assets/equiposolda.jpeg';
+import Torno from '../assets/equipotorno.jpeg';
 
 export default function Nosotros() {
   return (
@@ -82,7 +84,7 @@ export default function Nosotros() {
             <div className="bg-white rounded-lg shadow-lg overflow-hidden">
               <div className="relative h-64">
                 <img
-                  src="https://images.unsplash.com/photo-1581093792-9d42e3c7e935?auto=format&fit=crop&q=80"
+                   src={Torno}
                   alt="Equipo de Soldadura"
                   className="w-full h-full object-cover"
                 />
@@ -97,7 +99,7 @@ export default function Nosotros() {
             <div className="bg-white rounded-lg shadow-lg overflow-hidden">
               <div className="relative h-64">
                 <img
-                  src="https://images.unsplash.com/photo-1581093793-9d42e3c7e935?auto=format&fit=crop&q=80"
+                  src={Solda}
                   alt="Equipo de Torno"
                   className="w-full h-full object-cover"
                 />

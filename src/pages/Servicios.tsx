@@ -46,7 +46,7 @@ const servicios: Servicio[] = [
   },
   {
     id: '6',
-    titulo: 'Fabricación de Trailas',
+    titulo: 'Fabricación a medida',
     descripcion: 'Fabricamos trailas resistentes y de alta calidad, adaptadas a sus necesidades específicas de transporte de maquinaria.',
     icono: 'gauge',
     imagen: trailaImg
