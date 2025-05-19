@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Wrench, Truck, Settings, PenTool as Tool, HardHat, Gauge, X, ChevronRight, ArrowRight } from 'lucide-react';
+import { Star, ChevronLeft, ChevronRight, X, ArrowRight } from 'lucide-react';
 import { Servicio } from '../types';
 import soldaduraImg from '../assets/soldadura.jpg';
 import trailaImg from '../assets/traila.jpg';
@@ -137,25 +137,6 @@ const servicios: Servicio[] = [
   }
 ];
 
-const IconComponent = (iconName: string) => {
-  switch (iconName) {
-    case 'wrench':
-      return <Wrench className="h-8 w-8" />;
-    case 'truck':
-      return <Truck className="h-8 w-8" />;
-    case 'settings':
-      return <Settings className="h-8 w-8" />;
-    case 'hard-hat':
-      return <HardHat className="h-8 w-8" />;
-    case 'pen-tool':
-      return <Tool className="h-8 w-8" />;
-    case 'gauge':
-      return <Gauge className="h-8 w-8" />;
-    default:
-      return <Tool className="h-8 w-8" />;
-  }
-};
-
 export default function Servicios() {
   const [selectedService, setSelectedService] = useState<Servicio | null>(null);
 
@@ -166,7 +147,7 @@ export default function Servicios() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center"
+          className="text-center mb-12"
         >
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Nuestros Servicios</h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -175,44 +156,51 @@ export default function Servicios() {
         </motion.div>
 
         {/* Grid de Servicios */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {servicios.map((servicio, index) => (
             <motion.div
               key={servicio.id}
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
+              whileHover={{ 
+                scale: 1.03,
+                transition: { duration: 0.2 }
+              }}
+              className="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer"
               onClick={() => setSelectedService(servicio)}
             >
-              <div className="relative h-48">
+              <div className="relative h-64">
                 {servicio.imagen.endsWith('.mp4') ? (
-                  <video className="w-full h-full object-cover" loop muted autoPlay playsInline controls={false}>
-                    <source src={servicio.imagen} type="video/mp4" />
-                    Tu navegador no soporta el video.
-                  </video>
+                  <video
+                    src={servicio.imagen}
+                    className="w-full h-full object-cover transform transition-transform duration-300 hover:scale-105"
+                    controls={false}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                  />
                 ) : (
                   <img
                     src={servicio.imagen}
                     alt={servicio.titulo}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transform transition-transform duration-300 hover:scale-105"
                   />
                 )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
               </div>
               <div className="p-6">
-                <div className="flex items-center mb-4">
-                  <div className="p-2 bg-red-100 rounded-lg text-red-600">
-                    {IconComponent(servicio.icono)}
-                  </div>
-                  <h3 className="ml-3 text-xl font-semibold text-gray-900">
-                    {servicio.titulo}
-                  </h3>
-                </div>
+                <h3 className="text-xl font-semibold mb-2">{servicio.titulo}</h3>
                 <p className="text-gray-600 mb-4">{servicio.descripcion}</p>
-                <div className="flex items-center text-red-600 hover:text-red-700 transition-colors">
-                  <span>Explorar servicio</span>
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </div>
+                <motion.div 
+                  className="flex items-center text-red-600 font-medium group"
+                  whileHover={{ x: 5 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <span className="group-hover:text-red-700 transition-colors">Explorar servicio</span>
+                  <ArrowRight className="ml-2 h-4 w-4 transform transition-transform group-hover:translate-x-1" />
+                </motion.div>
               </div>
             </motion.div>
           ))}
@@ -225,7 +213,7 @@ export default function Servicios() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+              className="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center p-4"
               onClick={() => setSelectedService(null)}
             >
               <motion.div
@@ -233,7 +221,7 @@ export default function Servicios() {
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.95, opacity: 0 }}
                 transition={{ type: "spring", duration: 0.3 }}
-                className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-auto"
+                className="relative bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-auto"
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="relative">
@@ -262,19 +250,10 @@ export default function Servicios() {
                     >
                       <X className="h-6 w-6" />
                     </button>
-                    <div className="absolute bottom-0 left-0 p-6">
-                      <div className="flex items-center">
-                        <div className="p-3 bg-red-600 rounded-lg text-white">
-                          {IconComponent(selectedService.icono)}
-                        </div>
-                        <h2 className="ml-4 text-3xl font-bold text-white">
-                          {selectedService.titulo}
-                        </h2>
-                      </div>
-                    </div>
                   </div>
 
                   <div className="p-6">
+                    <h2 className="text-3xl font-bold mb-4">{selectedService.titulo}</h2>
                     <div className="prose max-w-none">
                       <p className="text-gray-600 whitespace-pre-line">
                         {selectedService.descripcionLarga}
@@ -294,18 +273,22 @@ export default function Servicios() {
                     </div>
 
                     <div className="mt-8 flex justify-end space-x-4">
-                      <button
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                         onClick={() => setSelectedService(null)}
                         className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
                       >
                         Cerrar
-                      </button>
-                      <button
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                         onClick={() => window.location.href = '/contacto'}
                         className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
                       >
                         Solicitar Servicio
-                      </button>
+                      </motion.button>
                     </div>
                   </div>
                 </div>
