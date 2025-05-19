@@ -1,71 +1,133 @@
-import { ArrowRight, Shield, Clock, PenTool as Tool } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import GalleryImage16 from '../assets/Gallery_Image16.jpeg';
-import GalleryImage17 from '../assets/Gallery_Image17.jpeg';
-import GalleryImage18 from '../assets/Gallery_Image18.jpeg';
-import GalleryImage19 from '../assets/Gallery_Image19.jpeg';
-import GalleryImage20 from '../assets/Gallery_Image20.jpeg';
-import Sol from '../assets/sol1.jpg';
+import { ArrowRight, Shield, Clock, PenToolIcon as Tool, ChevronLeft, ChevronRight } from "lucide-react"
+import { Link } from "react-router-dom"
+import { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import GalleryImage16 from "../assets/Gallery_Image16.jpeg"
+import GalleryImage17 from "../assets/Gallery_Image17.jpeg"
+import GalleryImage18 from "../assets/Gallery_Image18.jpeg"
+import GalleryImage19 from "../assets/Gallery_Image19.jpeg"
+import GalleryImage20 from "../assets/Gallery_Image20.jpeg"
+import Sol from "../assets/sol1.jpg"
 
 export default function Inicio() {
-  const images = [
-    GalleryImage16,
-    GalleryImage17,
-    GalleryImage18,
-    GalleryImage19,
-    GalleryImage20,
-    GalleryImage16, 
-    Sol,// Repitiendo la primera imagen para hacer 6
-  ];
+  const images = [GalleryImage16, GalleryImage17, GalleryImage18, GalleryImage19, GalleryImage20, Sol]
 
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [imagesLoaded, setImagesLoaded] = useState(false)
+  const [direction, setDirection] = useState(1) // 1 = derecha, -1 = izquierda
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 3000); // Cambia cada 4 segundos
+    const preloadImage = (src: string) =>
+      new Promise((resolve) => {
+        const img = new Image()
+        img.src = src
+        img.onload = resolve
+        img.onerror = resolve
+      })
 
-    return () => clearInterval(interval); // Limpieza del intervalo al desmontar
-  }, [images.length]);
+    const preloadAll = async () => {
+      await preloadImage(images[0])
+      setImagesLoaded(true)
+      for (let i = 1; i < images.length; i++) preloadImage(images[i])
+    }
+
+    preloadAll()
+  }, [])
+
+  useEffect(() => {
+    if (!imagesLoaded) return
+
+    const interval = setInterval(() => {
+      setDirection(1)
+      setCurrentImageIndex((prev) => (prev + 1) % images.length)
+    }, 4000)
+
+    return () => clearInterval(interval)
+  }, [imagesLoaded, images.length])
+
+  const goToNextSlide = () => {
+    setDirection(1)
+    setCurrentImageIndex((prev) => (prev + 1) % images.length)
+  }
+
+  const goToPrevSlide = () => {
+    setDirection(-1)
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
+  }
+
+  // Variantes mejoradas para un efecto de deslizamiento más pronunciado
+  const variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? "100%" : "-100%",
+      opacity: 0.2, // Menos desvanecimiento para enfatizar el deslizamiento
+      scale: 1.05, // Ligero efecto de escala para más dinamismo
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      transition: {
+        x: { type: "spring", stiffness: 300, damping: 30 },
+        opacity: { duration: 0.5 },
+        scale: { duration: 0.5 },
+      },
+    },
+    exit: (direction: number) => ({
+      x: direction < 0 ? "100%" : "-100%",
+      opacity: 0.2, // Menos desvanecimiento para enfatizar el deslizamiento
+      scale: 0.95, // Ligero efecto de escala para más dinamismo
+      transition: {
+        x: { type: "spring", stiffness: 300, damping: 30 },
+        opacity: { duration: 0.5 },
+        scale: { duration: 0.5 },
+      },
+    }),
+  }
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative h-screen w-full overflow-hidden">
-        <div 
-          className="absolute top-0 left-0 w-full h-full flex transition-transform duration-1000 ease-in-out"
-          style={{
-            transform: `translateX(-${currentImageIndex * 100}%)`,
-            backgroundImage: `url(${GalleryImage16})`, // Fondo predeterminado con la primera imagen
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        >
-          {images.map((image, index) => (
-            <div
-              key={index}
-              className="w-full h-full flex-shrink-0"
+      <section
+        className="relative h-screen w-full overflow-hidden bg-black"
+      >
+        {!imagesLoaded && (
+          <div className="absolute inset-0 flex items-center justify-center z-20">
+            <div className="w-16 h-16 border-4 border-red-600 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        )}
+
+        {/* Contenedor con perspectiva para mejorar el efecto 3D */}
+        <div className="absolute inset-0" style={{ perspective: "1000px" }}>
+          <AnimatePresence custom={direction} initial={false} mode="popLayout">
+            <motion.div
+              key={currentImageIndex}
+              className="absolute inset-0"
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
               style={{
-                backgroundImage: `url(${image})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundColor: 'transparent', // Transparente para permitir que el fondo predeterminado se vea
+                backgroundImage: `url(${images[currentImageIndex]})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                transformOrigin: direction > 0 ? "left center" : "right center",
               }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/60"></div>
-            </div>
-          ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
-        
-        <div className="relative h-full w-full flex items-center z-10">
+
+        {/* Contenido encima */}
+        <div className="relative h-full w-full flex items-center z-30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in">
               Expertos en Mantenimiento de
               <span className="block text-red-500">Maquinaria Pesada</span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-2xl animate-fade-in animate-delay-100 text-gray-200">
-              Soluciones profesionales y servicio técnico especializado para mantener su maquinaria funcionando de manera óptima.
+              Soluciones profesionales y servicio técnico especializado para mantener su maquinaria funcionando de
+              manera óptima.
             </p>
             <div className="animate-fade-in animate-delay-200">
               <Link
@@ -78,6 +140,23 @@ export default function Inicio() {
             </div>
           </div>
         </div>
+
+        {/* Indicadores */}
+        <div className="absolute bottom-8 left-0 right-0 flex justify-center space-x-2 z-40">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentImageIndex ? "bg-red-600 w-6" : "bg-white/50 hover:bg-white/80"
+              }`}
+              onClick={() => {
+                setDirection(index > currentImageIndex ? 1 : -1)
+                setCurrentImageIndex(index)
+              }}
+              aria-label={`Ver imagen ${index + 1}`}
+            />
+          ))}
+        </div>
       </section>
 
       {/* Características */}
@@ -87,22 +166,22 @@ export default function Inicio() {
             {[
               {
                 icon: <Shield className="h-12 w-12 text-red-600 mb-4" />,
-                title: 'Garantía de Calidad',
-                description: 'Respaldamos nuestro trabajo con garantías sólidas y estándares de calidad certificados.'
+                title: "Garantía de Calidad",
+                description: "Respaldamos nuestro trabajo con garantías sólidas y estándares de calidad certificados.",
               },
               {
                 icon: <Clock className="h-12 w-12 text-red-600 mb-4" />,
-                title: 'Servicio 24/7',
-                description: 'Disponibles las 24 horas para atender emergencias y mantener su operación en marcha.'
+                title: "Servicio 24/7",
+                description: "Disponibles las 24 horas para atender emergencias y mantener su operación en marcha.",
               },
               {
                 icon: <Tool className="h-12 w-12 text-red-600 mb-4" />,
-                title: 'Técnicos Especializados',
-                description: 'Equipo de profesionales certificados con amplia experiencia en el sector.'
-              }
+                title: "Técnicos Especializados",
+                description: "Equipo de profesionales certificados con amplia experiencia en el sector.",
+              },
             ].map((feature, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="flex flex-col items-center text-center p-6 card-hover animate-fade-in"
                 style={{ animationDelay: `${index * 200}ms` }}
               >
@@ -134,5 +213,5 @@ export default function Inicio() {
         </div>
       </section>
     </div>
-  );
+  )
 }
