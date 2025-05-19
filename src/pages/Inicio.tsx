@@ -1,52 +1,58 @@
 import { ArrowRight, Shield, Clock, PenTool as Tool } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import GalleryImage16 from '../assets/Gallery_Image16.jpeg';
-import GalleryImage17 from '../assets/Gallery_Image17.jpeg';
-import GalleryImage18 from '../assets/Gallery_Image18.jpeg';
-import GalleryImage19 from '../assets/Gallery_Image19.jpeg';
-import GalleryImage20 from '../assets/Gallery_Image20.jpeg';
-import Sol from '../assets/sol1.jpg';
+import { useState, useEffect, useCallback } from 'react';
 
 export default function Inicio() {
   const images = [
-    GalleryImage16,
-    GalleryImage17,
-    GalleryImage18,
-    GalleryImage19,
-    GalleryImage20,
-    Sol
+    '/Gallery_Image16.jpeg',
+    '/Gallery_Image17.jpeg',
+    '/Gallery_Image18.jpeg',
+    '/Gallery_Image19.jpeg',
+    '/Gallery_Image20.jpeg',
+    '/sol1.jpg'
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
 
-  useEffect(() => {
-    const preloadImages = async () => {
-      const promises = images.map((src) => {
-        return new Promise((resolve) => {
-          const img = new Image();
-          img.src = src;
-          img.onload = resolve;
-          img.onerror = resolve;
-        });
+  // Optimizar carga de imágenes
+  const preloadImages = useCallback(() => {
+    const promises = images.map((src) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => {
+          resolve();
+          // Limpiar memoria
+          img.onload = null;
+        };
+        img.onerror = resolve;
       });
-      await Promise.all(promises);
-      setImagesLoaded(true);
-    };
+    });
 
-    preloadImages();
+    Promise.all(promises).then(() => {
+      setImagesLoaded(true);
+      if (isFirstLoad) {
+        setIsFirstLoad(false);
+      }
+    });
   }, []);
 
   useEffect(() => {
-    if (!imagesLoaded) return;
+    preloadImages();
+  }, [preloadImages]);
+
+  useEffect(() => {
+    if (!imagesLoaded || isFirstLoad) return;
 
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [imagesLoaded, images.length]);
+  }, [imagesLoaded, isFirstLoad]);
+
 
   return (
     <div className="flex flex-col">
