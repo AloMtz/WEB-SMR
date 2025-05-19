@@ -121,27 +121,6 @@ export default function Inicio() {
           </AnimatePresence>
         </div>
 
-        {/* Botones de navegación */}
-        <div className="absolute inset-y-0 left-0 flex items-center z-30">
-          <button
-            onClick={goToPrevSlide}
-            className="bg-black/30 hover:bg-black/50 text-white p-2 m-4 rounded-full transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-red-500"
-            aria-label="Imagen anterior"
-          >
-            <ChevronLeft className="h-8 w-8" />
-          </button>
-        </div>
-
-        <div className="absolute inset-y-0 right-0 flex items-center z-30">
-          <button
-            onClick={goToNextSlide}
-            className="bg-black/30 hover:bg-black/50 text-white p-2 m-4 rounded-full transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-red-500"
-            aria-label="Imagen siguiente"
-          >
-            <ChevronRight className="h-8 w-8" />
-          </button>
-        </div>
-
         {/* Contenido encima */}
         <div className="relative h-full w-full flex items-center z-30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
