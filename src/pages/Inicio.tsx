@@ -15,7 +15,7 @@ export default function Inicio() {
     GalleryImage18,
     GalleryImage19,
     GalleryImage20,
-    GalleryImage16, 
+    //GalleryImage16, 
     Sol,// Repitiendo la primera imagen para hacer 6
   ];
 
