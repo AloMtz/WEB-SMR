@@ -144,35 +144,6 @@ export default function Inicio() {
           </div>
         </div>
 
-        {/* Indicadores */}
-        <div className="absolute bottom-8 left-0 right-0 flex justify-center space-x-2 z-40">
-          {images.map((_, index) => (
-            <button
-              key={index}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentImageIndex ? "bg-red-600 w-6" : "bg-white/50 hover:bg-white/80"
-              }`}
-              onClick={() => {
-                setDirection(index > currentImageIndex ? 1 : -1)
-                setCurrentImageIndex(index)
-              }}
-              aria-label={`Ver imagen ${index + 1}`}
-            />
-          ))}
-        </div>
-
-        {/* Indicador de pausa */}
-        <div className="absolute top-4 right-4 z-40">
-          <div
-            className={`text-xs font-medium px-3 py-1 rounded-full transition-all duration-300 ${
-              isPaused ? "bg-red-600 text-white" : "bg-white/20 text-white/80"
-            }`}
-          >
-            {isPaused ? "Pausado" : "Reproduciendo"}
-          </div>
-        </div>
-      </section>
-
       {/* Características */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
