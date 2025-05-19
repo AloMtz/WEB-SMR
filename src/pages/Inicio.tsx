@@ -50,7 +50,7 @@ export default function Inicio() {
                 backgroundImage: `url(${image})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                backgroundColor: 'transparent', // Transparente para permitir que el fondo predeterminado se vea
+                backgroundColor: '#000', // Transparente para permitir que el fondo predeterminado se vea
               }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/60"></div>
