@@ -15,7 +15,6 @@ export default function Inicio() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [imagesLoaded, setImagesLoaded] = useState(false)
   const [direction, setDirection] = useState(1) // 1 = derecha, -1 = izquierda
-  const [isPaused, setIsPaused] = useState(false)
 
   useEffect(() => {
     const preloadImage = (src: string) =>
@@ -36,7 +35,7 @@ export default function Inicio() {
   }, [])
 
   useEffect(() => {
-    if (!imagesLoaded || isPaused) return
+    if (!imagesLoaded) return
 
     const interval = setInterval(() => {
       setDirection(1)
@@ -44,7 +43,7 @@ export default function Inicio() {
     }, 4000)
 
     return () => clearInterval(interval)
-  }, [imagesLoaded, isPaused, images.length])
+  }, [imagesLoaded, images.length])
 
   const goToNextSlide = () => {
     setDirection(1)
@@ -89,8 +88,6 @@ export default function Inicio() {
     <div className="flex flex-col">
       <section
         className="relative h-screen w-full overflow-hidden bg-black"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
       >
         {!imagesLoaded && (
           <div className="absolute inset-0 flex items-center justify-center z-20">
