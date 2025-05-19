@@ -7,8 +7,10 @@ export interface Servicio {
   id: string;
   titulo: string;
   descripcion: string;
+  descripcionLarga: string;
   icono: string;
   imagen: string;
+  caracteristicas: string[];
 }
 
 export interface Proyecto {
