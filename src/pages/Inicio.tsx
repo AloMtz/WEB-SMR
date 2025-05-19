@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 
 export default function Inicio() {
   const images = [
-    '/Gallery_Image16.jpeg',
+    '../assets/Gallery_Image16.jpeg',
     '/Gallery_Image17.jpeg',
     '/Gallery_Image18.jpeg',
     '/Gallery_Image19.jpeg',
