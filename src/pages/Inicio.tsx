@@ -1,116 +1,108 @@
 import { ArrowRight, Shield, Clock, PenTool as Tool } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
+import GalleryImage16 from '../assets/Gallery_Image16.jpeg';
+import GalleryImage17 from '../assets/Gallery_Image17.jpeg';
+import GalleryImage18 from '../assets/Gallery_Image18.jpeg';
+import GalleryImage19 from '../assets/Gallery_Image19.jpeg';
+import GalleryImage20 from '../assets/Gallery_Image20.jpeg';
+import Sol from '../assets/sol1.jpg';
 
 export default function Inicio() {
   const images = [
-    '../assets/Gallery_Image16.jpeg',
-    '/Gallery_Image17.jpeg',
-    '/Gallery_Image18.jpeg',
-    '/Gallery_Image19.jpeg',
-    '/Gallery_Image20.jpeg',
-    '/sol1.jpg'
+    GalleryImage16,
+    GalleryImage17,
+    GalleryImage18,
+    GalleryImage19,
+    GalleryImage20,
+    Sol
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imagesLoaded, setImagesLoaded] = useState(false);
-  const [isFirstLoad, setIsFirstLoad] = useState(true);
 
-  // Optimizar carga de imágenes
-  const preloadImages = useCallback(() => {
-    const promises = images.map((src) => {
-      return new Promise((resolve) => {
-        const img = new Image();
-        img.src = src;
-        img.onload = () => {
-          resolve();
-          // Limpiar memoria
-          img.onload = null;
-        };
-        img.onerror = resolve;
+  useEffect(() => {
+    const preloadImages = async () => {
+      const promises = images.map((src) => {
+        return new Promise((resolve) => {
+          const img = new Image();
+          img.src = src;
+          img.onload = resolve;
+          img.onerror = resolve;
+        });
       });
-    });
-
-    Promise.all(promises).then(() => {
+      await Promise.all(promises);
       setImagesLoaded(true);
-      if (isFirstLoad) {
-        setIsFirstLoad(false);
-      }
-    });
+    };
+
+    preloadImages();
   }, []);
 
   useEffect(() => {
-    preloadImages();
-  }, [preloadImages]);
-
-  useEffect(() => {
-    if (!imagesLoaded || isFirstLoad) return;
+    if (!imagesLoaded) return;
 
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [imagesLoaded, isFirstLoad]);
-
+  }, [imagesLoaded, images.length]);
 
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
       {imagesLoaded && (
-      <section 
-        className={`relative h-screen w-full overflow-hidden transition-opacity duration-1000 ${
-          !imagesLoaded ? 'opacity-0' : 'opacity-100'
-        }`}
-        style={{
-          backgroundImage: `url(${images[0]})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-  <div
-    className="absolute top-0 left-0 w-full h-full flex transition-transform duration-1000 ease-in-out"
-    style={{
-      transform: `translateX(-${currentImageIndex * 100}%)`,
-    }}
-  >
-    {images.map((image, index) => (
-      <div
-        key={index}
-        className="w-full h-full flex-shrink-0"
-        style={{
-          backgroundImage: `url(${image})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundColor: '#000', // fallback
-        }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/60"></div>
-      </div>
-    ))}
-  </div>
+        <section
+  className="relative h-screen w-full overflow-hidden"
+  style={{
+    backgroundImage: `url(${GalleryImage16})`, // Imagen base siempre visible
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  }}
+>
+          <div
+            className="absolute top-0 left-0 w-full h-full flex transition-transform duration-1000 ease-in-out"
+            style={{
+              transform: `translateX(-${currentImageIndex * 100}%)`,
+            }}
+          >
+            {images.map((image, index) => (
+              <div
+                key={index}
+                className="w-full h-full flex-shrink-0"
+                style={{
+                  backgroundImage: `url(${image})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundColor: '#000',
+                }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/60"></div>
+              </div>
+            ))}
+          </div>
 
-  <div className="relative h-full w-full flex items-center z-10">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
-      <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in">
-        Expertos en Mantenimiento de
-        <span className="block text-red-500">Maquinaria Pesada</span>
-      </h1>
-      <p className="text-xl md:text-2xl mb-8 max-w-2xl animate-fade-in animate-delay-100 text-gray-200">
-        Soluciones profesionales y servicio técnico especializado para mantener su maquinaria funcionando de manera óptima.
-      </p>
-      <div className="animate-fade-in animate-delay-200">
-        <Link
-          to="/contacto"
-          className="inline-flex items-center bg-red-600 text-white px-8 py-4 rounded-lg font-medium hover:bg-red-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
-        >
-          Solicitar Servicio
-          <ArrowRight className="ml-2 h-5 w-5" />
-        </Link>
-      </div>
-    </div>
-  </div>
-</section>
+          <div className="relative h-full w-full flex items-center z-10">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in">
+                Expertos en Mantenimiento de
+                <span className="block text-red-500">Maquinaria Pesada</span>
+              </h1>
+              <p className="text-xl md:text-2xl mb-8 max-w-2xl animate-fade-in animate-delay-100 text-gray-200">
+                Soluciones profesionales y servicio técnico especializado para mantener su maquinaria funcionando de manera óptima.
+              </p>
+              <div className="animate-fade-in animate-delay-200">
+                <Link
+                  to="/contacto"
+                  className="inline-flex items-center bg-red-600 text-white px-8 py-4 rounded-lg font-medium hover:bg-red-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                >
+                  Solicitar Servicio
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
       )}
 
       {/* Características */}
