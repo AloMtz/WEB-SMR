@@ -1,6 +1,6 @@
-import { ArrowRight, Shield, Clock, PenTool as Tool } from 'lucide-react';
+import { ArrowRight, Shield, Clock, PenToolIcon as Tool } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import GalleryImage16 from '../assets/Gallery_Image16.jpeg';
 import GalleryImage17 from '../assets/Gallery_Image17.jpeg';
 import GalleryImage18 from '../assets/Gallery_Image18.jpeg';
@@ -20,24 +20,51 @@ export default function Inicio() {
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [loadedImages, setLoadedImages] = useState<boolean[]>(Array(images.length).fill(false));
+  const carouselRef = useRef<HTMLDivElement>(null);
 
+  // Precargar imágenes individualmente y mostrar el carrusel tan pronto como la primera imagen esté lista
   useEffect(() => {
-    const preloadImages = async () => {
-      const promises = images.map((src) => {
-        return new Promise((resolve) => {
-          const img = new Image();
-          img.src = src;
-          img.onload = resolve;
-          img.onerror = resolve;
+    const loadImage = (index: number) => {
+      const img = new Image();
+      img.src = images[index];
+      img.crossOrigin = "anonymous"; // Evitar problemas CORS
+      img.onload = () => {
+        setLoadedImages(prev => {
+          const newState = [...prev];
+          newState[index] = true;
+          return newState;
         });
-      });
-      await Promise.all(promises);
-      setImagesLoaded(true);
+        
+        // Si es la primera imagen, permitir que se muestre el carrusel
+        if (index === 0) {
+          setImagesLoaded(true);
+        }
+      };
+      img.onerror = () => {
+        // Marcar como cargada incluso en error para no bloquear la interfaz
+        setLoadedImages(prev => {
+          const newState = [...prev];
+          newState[index] = true;
+          return newState;
+        });
+        
+        if (index === 0) {
+          setImagesLoaded(true);
+        }
+      };
     };
 
-    preloadImages();
-  }, []);
+    // Cargar la primera imagen primero
+    loadImage(0);
+    
+    // Luego cargar el resto de imágenes
+    for (let i = 1; i < images.length; i++) {
+      loadImage(i);
+    }
+  }, []); // Removed images from the dependency array
 
+  // Iniciar el carrusel solo cuando al menos la primera imagen esté cargada
   useEffect(() => {
     if (!imagesLoaded) return;
 
@@ -50,60 +77,85 @@ export default function Inicio() {
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
-      {imagesLoaded && (
-        <section
-  className="relative h-screen w-full overflow-hidden"
-  style={{
-    backgroundImage: `url(${GalleryImage16})`, // Imagen base siempre visible
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  }}
->
-          <div
-            className="absolute top-0 left-0 w-full h-full flex transition-transform duration-1000 ease-in-out"
+      {/* Hero Section - Siempre visible, con un estado de carga */}
+      <section
+        className="relative h-screen w-full overflow-hidden bg-gray-900"
+      >
+        {/* Mostrar un indicador de carga si ninguna imagen está cargada */}
+        {!imagesLoaded && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-16 h-16 border-4 border-red-600 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        )}
+
+        {/* Carrusel de imágenes - Visible incluso durante la carga, pero con opacidad reducida */}
+        <div
+          ref={carouselRef}
+          className={`absolute inset-0 transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}
+        >
+          {/* Imagen actual siempre visible */}
+          <div 
+            className="absolute inset-0 transition-opacity duration-1000"
             style={{
-              transform: `translateX(-${currentImageIndex * 100}%)`,
+              backgroundImage: `url(${images[currentImageIndex]})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
             }}
           >
-            {images.map((image, index) => (
-              <div
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/60"></div>
+          </div>
+
+          {/* Precargar la siguiente imagen */}
+          {images.map((image, index) => (
+            index !== currentImageIndex && (
+              <div 
                 key={index}
-                className="w-full h-full flex-shrink-0"
+                className="absolute inset-0 opacity-0"
                 style={{
                   backgroundImage: `url(${image})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
-                  backgroundColor: '#000',
                 }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/60"></div>
-              </div>
-            ))}
-          </div>
+              />
+            )
+          ))}
+        </div>
 
-          <div className="relative h-full w-full flex items-center z-10">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in">
-                Expertos en Mantenimiento de
-                <span className="block text-red-500">Maquinaria Pesada</span>
-              </h1>
-              <p className="text-xl md:text-2xl mb-8 max-w-2xl animate-fade-in animate-delay-100 text-gray-200">
-                Soluciones profesionales y servicio técnico especializado para mantener su maquinaria funcionando de manera óptima.
-              </p>
-              <div className="animate-fade-in animate-delay-200">
-                <Link
-                  to="/contacto"
-                  className="inline-flex items-center bg-red-600 text-white px-8 py-4 rounded-lg font-medium hover:bg-red-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
-                >
-                  Solicitar Servicio
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </div>
+        <div className="relative h-full w-full flex items-center z-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in">
+              Expertos en Mantenimiento de
+              <span className="block text-red-500">Maquinaria Pesada</span>
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 max-w-2xl animate-fade-in animate-delay-100 text-gray-200">
+              Soluciones profesionales y servicio técnico especializado para mantener su maquinaria funcionando de manera óptima.
+            </p>
+            <div className="animate-fade-in animate-delay-200">
+              <Link
+                to="/contacto"
+                className="inline-flex items-center bg-red-600 text-white px-8 py-4 rounded-lg font-medium hover:bg-red-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+              >
+                Solicitar Servicio
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
             </div>
           </div>
-        </section>
-      )}
+        </div>
+
+        {/* Indicadores de navegación */}
+        <div className="absolute bottom-8 left-0 right-0 flex justify-center space-x-2 z-20">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentImageIndex ? 'bg-red-600 w-6' : 'bg-white/50 hover:bg-white/80'
+              }`}
+              onClick={() => setCurrentImageIndex(index)}
+              aria-label={`Ver imagen ${index + 1}`}
+            />
+          ))}
+        </div>
+      </section>
 
       {/* Características */}
       <section className="py-20 bg-white">
