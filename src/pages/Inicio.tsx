@@ -15,70 +15,88 @@ export default function Inicio() {
     GalleryImage18,
     GalleryImage19,
     GalleryImage20,
-    //GalleryImage16, 
-    Sol,// Repitiendo la primera imagen para hacer 6
+    Sol
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
 
   useEffect(() => {
+    const preloadImages = async () => {
+      const promises = images.map((src) => {
+        return new Promise((resolve) => {
+          const img = new Image();
+          img.src = src;
+          img.onload = resolve;
+          img.onerror = resolve;
+        });
+      });
+      await Promise.all(promises);
+      setImagesLoaded(true);
+    };
+
+    preloadImages();
+  }, []);
+
+  useEffect(() => {
+    if (!imagesLoaded) return;
+
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 3000); // Cambia cada 4 segundos
+    }, 3000);
 
-    return () => clearInterval(interval); // Limpieza del intervalo al desmontar
-  }, [images.length]);
+    return () => clearInterval(interval);
+  }, [imagesLoaded, images.length]);
 
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative h-screen w-full overflow-hidden">
-        <div 
-          className="absolute top-0 left-0 w-full h-full flex transition-transform duration-1000 ease-in-out"
-          style={{
-            transform: `translateX(-${currentImageIndex * 100}%)`,
-            backgroundImage: `url(${GalleryImage16})`, // Fondo predeterminado con la primera imagen
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        >
-          {images.map((image, index) => (
-            <div
-              key={index}
-              className="w-full h-full flex-shrink-0"
-              style={{
-                backgroundImage: `url(${image})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundColor: '#000', // Transparente para permitir que el fondo predeterminado se vea
-              }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/60"></div>
-            </div>
-          ))}
-        </div>
-        
-        <div className="relative h-full w-full flex items-center z-10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in">
-              Expertos en Mantenimiento de
-              <span className="block text-red-500">Maquinaria Pesada</span>
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 max-w-2xl animate-fade-in animate-delay-100 text-gray-200">
-              Soluciones profesionales y servicio técnico especializado para mantener su maquinaria funcionando de manera óptima.
-            </p>
-            <div className="animate-fade-in animate-delay-200">
-              <Link
-                to="/contacto"
-                className="inline-flex items-center bg-red-600 text-white px-8 py-4 rounded-lg font-medium hover:bg-red-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+      {imagesLoaded && (
+        <section className="relative h-screen w-full overflow-hidden">
+          <div
+            className="absolute top-0 left-0 w-full h-full flex transition-transform duration-1000 ease-in-out"
+            style={{
+              transform: `translateX(-${currentImageIndex * 100}%)`,
+            }}
+          >
+            {images.map((image, index) => (
+              <div
+                key={index}
+                className="w-full h-full flex-shrink-0"
+                style={{
+                  backgroundImage: `url(${image})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundColor: '#000',
+                }}
               >
-                Solicitar Servicio
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
+                <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/60"></div>
+              </div>
+            ))}
+          </div>
+
+          <div className="relative h-full w-full flex items-center z-10">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in">
+                Expertos en Mantenimiento de
+                <span className="block text-red-500">Maquinaria Pesada</span>
+              </h1>
+              <p className="text-xl md:text-2xl mb-8 max-w-2xl animate-fade-in animate-delay-100 text-gray-200">
+                Soluciones profesionales y servicio técnico especializado para mantener su maquinaria funcionando de manera óptima.
+              </p>
+              <div className="animate-fade-in animate-delay-200">
+                <Link
+                  to="/contacto"
+                  className="inline-flex items-center bg-red-600 text-white px-8 py-4 rounded-lg font-medium hover:bg-red-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                >
+                  Solicitar Servicio
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Características */}
       <section className="py-20 bg-white">
