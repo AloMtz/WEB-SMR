@@ -52,7 +52,14 @@ export default function Inicio() {
     <div className="flex flex-col">
       {/* Hero Section */}
       {imagesLoaded && (
-        <section className="relative h-screen w-full overflow-hidden">
+        <section
+  className="relative h-screen w-full overflow-hidden"
+  style={{
+    backgroundImage: `url(${GalleryImage16})`, // Imagen base siempre visible
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  }}
+>
           <div
             className="absolute top-0 left-0 w-full h-full flex transition-transform duration-1000 ease-in-out"
             style={{
