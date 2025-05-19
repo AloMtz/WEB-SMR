@@ -143,6 +143,23 @@ export default function Inicio() {
             </div>
           </div>
         </div>
+
+        {/* Indicadores */}
+        <div className="absolute bottom-8 left-0 right-0 flex justify-center space-x-2 z-40">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentImageIndex ? "bg-red-600 w-6" : "bg-white/50 hover:bg-white/80"
+              }`}
+              onClick={() => {
+                setDirection(index > currentImageIndex ? 1 : -1)
+                setCurrentImageIndex(index)
+              }}
+              aria-label={`Ver imagen ${index + 1}`}
+            />
+          ))}
+        </div>
       </section>
 
       {/* Características */}
