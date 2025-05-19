@@ -62,7 +62,7 @@ export default function Inicio() {
     for (let i = 1; i < images.length; i++) {
       loadImage(i);
     }
-  }, [images]);
+  }, []); // Removed images from the dependency array
 
   // Iniciar el carrusel solo cuando al menos la primera imagen esté cargada
   useEffect(() => {
