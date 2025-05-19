@@ -1,7 +1,7 @@
-// Al inicio del archivo
 import { ArrowRight, Shield, Clock, PenToolIcon as Tool } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import GalleryImage16 from '../assets/Gallery_Image16.jpeg';
 import GalleryImage17 from '../assets/Gallery_Image17.jpeg';
 import GalleryImage18 from '../assets/Gallery_Image18.jpeg';
@@ -21,10 +21,10 @@ export default function Inicio() {
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [direction, setDirection] = useState(1); // 1 = derecha, -1 = izquierda
 
   useEffect(() => {
-    // Precarga la primera y luego las demás
-    const loadImage = (src: string) =>
+    const preloadImage = (src: string) =>
       new Promise((resolve) => {
         const img = new Image();
         img.src = src;
@@ -32,54 +32,73 @@ export default function Inicio() {
         img.onerror = resolve;
       });
 
-    const preload = async () => {
-      await loadImage(images[0]);
+    const preloadAll = async () => {
+      await preloadImage(images[0]);
       setImagesLoaded(true);
-      for (let i = 1; i < images.length; i++) {
-        loadImage(images[i]);
-      }
+      for (let i = 1; i < images.length; i++) preloadImage(images[i]);
     };
 
-    preload();
+    preloadAll();
   }, []);
 
   useEffect(() => {
     if (!imagesLoaded) return;
+
     const interval = setInterval(() => {
+      setDirection(1);
       setCurrentImageIndex((prev) => (prev + 1) % images.length);
     }, 4000);
+
     return () => clearInterval(interval);
   }, [imagesLoaded, images.length]);
+
+  const variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.8 },
+    },
+    exit: (direction: number) => ({
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+      transition: { duration: 0.8 },
+    }),
+  };
 
   return (
     <div className="flex flex-col">
       <section className="relative h-screen w-full overflow-hidden bg-black">
-        {/* Indicador de carga */}
         {!imagesLoaded && (
           <div className="absolute inset-0 flex items-center justify-center z-20">
             <div className="w-16 h-16 border-4 border-red-600 border-t-transparent rounded-full animate-spin"></div>
           </div>
         )}
 
-        {/* Fondo de carrusel con transición fade */}
-        <div className="absolute inset-0">
-          {images.map((image, index) => (
-            <div
-              key={index}
-              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
-              style={{
-                backgroundImage: `url(${image})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/60"></div>
-            </div>
-          ))}
-        </div>
+        <AnimatePresence custom={direction} initial={false}>
+          <motion.div
+            key={currentImageIndex}
+            className="absolute inset-0"
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            style={{
+              backgroundImage: `url(${images[currentImageIndex]})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/60"></div>
+          </motion.div>
+        </AnimatePresence>
 
         {/* Contenido encima */}
-        <div className="relative h-full w-full flex items-center z-20">
+        <div className="relative h-full w-full flex items-center z-30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in">
               Expertos en Mantenimiento de
@@ -100,15 +119,18 @@ export default function Inicio() {
           </div>
         </div>
 
-        {/* Indicadores de navegación */}
-        <div className="absolute bottom-8 left-0 right-0 flex justify-center space-x-2 z-30">
+        {/* Indicadores */}
+        <div className="absolute bottom-8 left-0 right-0 flex justify-center space-x-2 z-40">
           {images.map((_, index) => (
             <button
               key={index}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
                 index === currentImageIndex ? 'bg-red-600 w-6' : 'bg-white/50 hover:bg-white/80'
               }`}
-              onClick={() => setCurrentImageIndex(index)}
+              onClick={() => {
+                setDirection(index > currentImageIndex ? 1 : -1);
+                setCurrentImageIndex(index);
+              }}
               aria-label={`Ver imagen ${index + 1}`}
             />
           ))}
