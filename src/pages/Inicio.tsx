@@ -1,101 +1,146 @@
-import { ArrowRight, Shield, Clock, PenToolIcon as Tool } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import GalleryImage16 from '../assets/Gallery_Image16.jpeg';
-import GalleryImage17 from '../assets/Gallery_Image17.jpeg';
-import GalleryImage18 from '../assets/Gallery_Image18.jpeg';
-import GalleryImage19 from '../assets/Gallery_Image19.jpeg';
-import GalleryImage20 from '../assets/Gallery_Image20.jpeg';
-import Sol from '../assets/sol1.jpg';
+import { ArrowRight, Shield, Clock, PenToolIcon as Tool, ChevronLeft, ChevronRight } from "lucide-react"
+import { Link } from "react-router-dom"
+import { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import GalleryImage16 from "../assets/Gallery_Image16.jpeg"
+import GalleryImage17 from "../assets/Gallery_Image17.jpeg"
+import GalleryImage18 from "../assets/Gallery_Image18.jpeg"
+import GalleryImage19 from "../assets/Gallery_Image19.jpeg"
+import GalleryImage20 from "../assets/Gallery_Image20.jpeg"
+import Sol from "../assets/sol1.jpg"
 
 export default function Inicio() {
-  const images = [
-    GalleryImage16,
-    GalleryImage17,
-    GalleryImage18,
-    GalleryImage19,
-    GalleryImage20,
-    Sol
-  ];
+  const images = [GalleryImage16, GalleryImage17, GalleryImage18, GalleryImage19, GalleryImage20, Sol]
 
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [imagesLoaded, setImagesLoaded] = useState(false);
-  const [direction, setDirection] = useState(1); // 1 = derecha, -1 = izquierda
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [imagesLoaded, setImagesLoaded] = useState(false)
+  const [direction, setDirection] = useState(1) // 1 = derecha, -1 = izquierda
+  const [isPaused, setIsPaused] = useState(false)
 
   useEffect(() => {
     const preloadImage = (src: string) =>
       new Promise((resolve) => {
-        const img = new Image();
-        img.src = src;
-        img.onload = resolve;
-        img.onerror = resolve;
-      });
+        const img = new Image()
+        img.src = src
+        img.onload = resolve
+        img.onerror = resolve
+      })
 
     const preloadAll = async () => {
-      await preloadImage(images[0]);
-      setImagesLoaded(true);
-      for (let i = 1; i < images.length; i++) preloadImage(images[i]);
-    };
+      await preloadImage(images[0])
+      setImagesLoaded(true)
+      for (let i = 1; i < images.length; i++) preloadImage(images[i])
+    }
 
-    preloadAll();
-  }, []);
+    preloadAll()
+  }, [])
 
   useEffect(() => {
-    if (!imagesLoaded) return;
+    if (!imagesLoaded || isPaused) return
 
     const interval = setInterval(() => {
-      setDirection(1);
-      setCurrentImageIndex((prev) => (prev + 1) % images.length);
-    }, 4000);
+      setDirection(1)
+      setCurrentImageIndex((prev) => (prev + 1) % images.length)
+    }, 4000)
 
-    return () => clearInterval(interval);
-  }, [imagesLoaded, images.length]);
+    return () => clearInterval(interval)
+  }, [imagesLoaded, isPaused, images.length])
 
+  const goToNextSlide = () => {
+    setDirection(1)
+    setCurrentImageIndex((prev) => (prev + 1) % images.length)
+  }
+
+  const goToPrevSlide = () => {
+    setDirection(-1)
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
+  }
+
+  // Variantes mejoradas para un efecto de deslizamiento más pronunciado
   const variants = {
     enter: (direction: number) => ({
-      x: direction > 0 ? 1000 : -1000,
-      opacity: 0,
+      x: direction > 0 ? "100%" : "-100%",
+      opacity: 0.2, // Menos desvanecimiento para enfatizar el deslizamiento
+      scale: 1.05, // Ligero efecto de escala para más dinamismo
     }),
     center: {
       x: 0,
       opacity: 1,
-      transition: { duration: 0.8 },
+      scale: 1,
+      transition: {
+        x: { type: "spring", stiffness: 300, damping: 30 },
+        opacity: { duration: 0.5 },
+        scale: { duration: 0.5 },
+      },
     },
     exit: (direction: number) => ({
-      x: direction < 0 ? 1000 : -1000,
-      opacity: 0,
-      transition: { duration: 0.8 },
+      x: direction < 0 ? "100%" : "-100%",
+      opacity: 0.2, // Menos desvanecimiento para enfatizar el deslizamiento
+      scale: 0.95, // Ligero efecto de escala para más dinamismo
+      transition: {
+        x: { type: "spring", stiffness: 300, damping: 30 },
+        opacity: { duration: 0.5 },
+        scale: { duration: 0.5 },
+      },
     }),
-  };
+  }
 
   return (
     <div className="flex flex-col">
-      <section className="relative h-screen w-full overflow-hidden bg-black">
+      <section
+        className="relative h-screen w-full overflow-hidden bg-black"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
         {!imagesLoaded && (
           <div className="absolute inset-0 flex items-center justify-center z-20">
             <div className="w-16 h-16 border-4 border-red-600 border-t-transparent rounded-full animate-spin"></div>
           </div>
         )}
 
-        <AnimatePresence custom={direction} initial={false}>
-          <motion.div
-            key={currentImageIndex}
-            className="absolute inset-0"
-            custom={direction}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            style={{
-              backgroundImage: `url(${images[currentImageIndex]})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
+        {/* Contenedor con perspectiva para mejorar el efecto 3D */}
+        <div className="absolute inset-0" style={{ perspective: "1000px" }}>
+          <AnimatePresence custom={direction} initial={false} mode="popLayout">
+            <motion.div
+              key={currentImageIndex}
+              className="absolute inset-0"
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              style={{
+                backgroundImage: `url(${images[currentImageIndex]})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                transformOrigin: direction > 0 ? "left center" : "right center",
+              }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/60"></div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Botones de navegación */}
+        <div className="absolute inset-y-0 left-0 flex items-center z-30">
+          <button
+            onClick={goToPrevSlide}
+            className="bg-black/30 hover:bg-black/50 text-white p-2 m-4 rounded-full transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-red-500"
+            aria-label="Imagen anterior"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/60"></div>
-          </motion.div>
-        </AnimatePresence>
+            <ChevronLeft className="h-8 w-8" />
+          </button>
+        </div>
+
+        <div className="absolute inset-y-0 right-0 flex items-center z-30">
+          <button
+            onClick={goToNextSlide}
+            className="bg-black/30 hover:bg-black/50 text-white p-2 m-4 rounded-full transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-red-500"
+            aria-label="Imagen siguiente"
+          >
+            <ChevronRight className="h-8 w-8" />
+          </button>
+        </div>
 
         {/* Contenido encima */}
         <div className="relative h-full w-full flex items-center z-30">
@@ -105,7 +150,8 @@ export default function Inicio() {
               <span className="block text-red-500">Maquinaria Pesada</span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-2xl animate-fade-in animate-delay-100 text-gray-200">
-              Soluciones profesionales y servicio técnico especializado para mantener su maquinaria funcionando de manera óptima.
+              Soluciones profesionales y servicio técnico especializado para mantener su maquinaria funcionando de
+              manera óptima.
             </p>
             <div className="animate-fade-in animate-delay-200">
               <Link
@@ -125,15 +171,26 @@ export default function Inicio() {
             <button
               key={index}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentImageIndex ? 'bg-red-600 w-6' : 'bg-white/50 hover:bg-white/80'
+                index === currentImageIndex ? "bg-red-600 w-6" : "bg-white/50 hover:bg-white/80"
               }`}
               onClick={() => {
-                setDirection(index > currentImageIndex ? 1 : -1);
-                setCurrentImageIndex(index);
+                setDirection(index > currentImageIndex ? 1 : -1)
+                setCurrentImageIndex(index)
               }}
               aria-label={`Ver imagen ${index + 1}`}
             />
           ))}
+        </div>
+
+        {/* Indicador de pausa */}
+        <div className="absolute top-4 right-4 z-40">
+          <div
+            className={`text-xs font-medium px-3 py-1 rounded-full transition-all duration-300 ${
+              isPaused ? "bg-red-600 text-white" : "bg-white/20 text-white/80"
+            }`}
+          >
+            {isPaused ? "Pausado" : "Reproduciendo"}
+          </div>
         </div>
       </section>
 
@@ -144,22 +201,22 @@ export default function Inicio() {
             {[
               {
                 icon: <Shield className="h-12 w-12 text-red-600 mb-4" />,
-                title: 'Garantía de Calidad',
-                description: 'Respaldamos nuestro trabajo con garantías sólidas y estándares de calidad certificados.'
+                title: "Garantía de Calidad",
+                description: "Respaldamos nuestro trabajo con garantías sólidas y estándares de calidad certificados.",
               },
               {
                 icon: <Clock className="h-12 w-12 text-red-600 mb-4" />,
-                title: 'Servicio 24/7',
-                description: 'Disponibles las 24 horas para atender emergencias y mantener su operación en marcha.'
+                title: "Servicio 24/7",
+                description: "Disponibles las 24 horas para atender emergencias y mantener su operación en marcha.",
               },
               {
                 icon: <Tool className="h-12 w-12 text-red-600 mb-4" />,
-                title: 'Técnicos Especializados',
-                description: 'Equipo de profesionales certificados con amplia experiencia en el sector.'
-              }
+                title: "Técnicos Especializados",
+                description: "Equipo de profesionales certificados con amplia experiencia en el sector.",
+              },
             ].map((feature, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="flex flex-col items-center text-center p-6 card-hover animate-fade-in"
                 style={{ animationDelay: `${index * 200}ms` }}
               >
@@ -191,5 +248,5 @@ export default function Inicio() {
         </div>
       </section>
     </div>
-  );
+  )
 }
