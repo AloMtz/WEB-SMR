@@ -78,7 +78,7 @@ export default function Inicio() {
           <div className="relative h-full w-full flex items-center z-10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in">
-                Expertos en Mantenimiento de
+                Expertos en Ma
                 <span className="block text-red-500">Maquinaria Pesada</span>
               </h1>
               <p className="text-xl md:text-2xl mb-8 max-w-2xl animate-fade-in animate-delay-100 text-gray-200">
