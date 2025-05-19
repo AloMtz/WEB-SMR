@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star, ChevronLeft, ChevronRight, X, ArrowRight } from 'lucide-react';
 import { Servicio } from '../types';
-import soldaduraImg from '../assets/soldadura.jpg';
-import trailaImg from '../assets/traila.jpg';
-import Fabri from '../assets/fabricacion.jpg';
-import Maqui from '../assets/maq.jpg';
+import soldaduraImg from '../assets/equiposolda.jpeg';
+import trailaImg from '../assets/fabri.jpeg';
+import Fabri from '../assets/diagnostico.jpeg';
+import Maqui from '../assets/manti.jpeg';
 import DiseñoImg from '../assets/diseño.mp4';
-import DiaImg from '../assets/Diagnostico.jpg';
+import DiaImg from '../assets/diag.mp4';
 
 const servicios: Servicio[] = [
   {

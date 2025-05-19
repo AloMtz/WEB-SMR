@@ -13,12 +13,12 @@ import PostVideo1 from "../assets/PostVideo_1.mp4"
 const blogPosts: BlogPostType[] = [
     {
         id: '1',
-        title: 'Operaciones de Rescate: Envío de Cuadrillas a Estados de México',
+        title: 'Operaciones de Rescate: Envío de Cuadrillas a Mina Peñasquito México',
         slug: 'operaciones-rescate-cuadrillas-mexico',
         excerpt:
             'Conoce cómo enviamos cuadrillas de emergencia a distintos estados de México para rescatar maquinaria pesada volcada y garantizar la continuidad de las operaciones.',
         content: `
-        <p>Recientemente, nuestro equipo recibió una llamada de auxilio desde un proyecto ubicado en una zona desértica del norte de México. Una excavadora se había volcado debido a las condiciones del terreno, lo que representaba un riesgo tanto para la maquinaria como para la seguridad de los operadores. De inmediato, organizamos una cuadrilla de rescate especializada y nos trasladamos hasta el lugar para evaluar la situación.</p>
+        <p>Recientemente, nuestro equipo recibió una llamada de auxilio desde un proyecto ubicado en una zona desértica del norte de México. Un tractor se había volcado debido a las condiciones del terreno, lo que representaba un riesgo tanto para la maquinaria como para la seguridad de los operadores. De inmediato, organizamos una cuadrilla de rescate especializada y nos trasladamos hasta el lugar para evaluar la situación.</p>
 
         <h2>La importancia de la respuesta rápida</h2>
         <p>Actuar con prontitud en casos como estos es esencial. Cada minuto que pasa puede incrementar los daños en la maquinaria, así como los costos asociados a la detención de la obra. Por ello, contamos con un equipo de técnicos altamente capacitados y equipados con las herramientas necesarias para llevar a cabo rescates de maquinaria pesada en cualquier parte del país.</p>
