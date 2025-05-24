@@ -1,13 +1,23 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Star, ChevronLeft, ChevronRight, X, ArrowRight } from 'lucide-react';
+import {
+  Wrench,
+  Truck,
+  Settings,
+  PenTool as Tool,
+  HardHat,
+  Gauge,
+  ChevronRight,
+  X,
+  ArrowRight
+} from 'lucide-react';
 import { Servicio } from '../types';
 import soldaduraImg from '../assets/equiposolda.jpeg';
 import trailaImg from '../assets/fabri.jpeg';
 import Fabri from '../assets/diagnostico.jpeg';
 import Maqui from '../assets/manti.jpeg';
 import DiseñoImg from '../assets/diseño.mp4';
-import DiaImg from '../assets/diag.mp4';
+import DiaImg from '../assets/herramientas.png';
 
 const servicios: Servicio[] = [
   {
@@ -17,7 +27,9 @@ const servicios: Servicio[] = [
     descripcionLarga: `Nuestro servicio de mantenimiento preventivo está diseñado para maximizar la vida útil de su maquinaria y prevenir costosas reparaciones de emergencia. El programa incluye:
 
     • Inspecciones periódicas programadas
-    • Análisis de aceite y fluidos
+    • Reportes de Servicio
+    • Bitacora de Mantenimiento por Equipo
+    • Análisis del estado del producto
     • Ajustes y calibraciones
     • Reemplazo de componentes desgastados
     • Documentación detallada de mantenimiento
@@ -35,7 +47,7 @@ const servicios: Servicio[] = [
     id: '2',
     titulo: 'Reparación de Emergencia',
     descripcion: 'Servicio de respuesta rápida 24/7 para minimizar el tiempo de inactividad de su equipo.',
-    descripcionLarga: `Entendemos que el tiempo de inactividad es costoso. Nuestro servicio de emergencia 24/7 garantiza una respuesta rápida y eficiente cuando más lo necesita:
+    descripcionLarga: `Entendemos que la inactividad en los equipos genera perdidas. Nuestro servicio de emergencia 24/7 garantiza una respuesta rápida y eficiente cuando más lo necesita:
 
     • Respuesta inmediata en campo
     • Diagnóstico rápido y preciso
@@ -74,7 +86,7 @@ const servicios: Servicio[] = [
   },
   {
     id: '4',
-    titulo: 'Diseño y Fabricación',
+    titulo: 'Diseño y Fabricación de Actuadores y Piezas Moviles de Máquina',
     descripcion: 'Fabricamos piezas a medida para cubrir las necesidades específicas de su maquinaria.',
     descripcionLarga: `Nuestro servicio de diseño y fabricación ofrece soluciones personalizadas para sus necesidades específicas:
 
@@ -100,6 +112,7 @@ const servicios: Servicio[] = [
     descripcionLarga: `Nuestros servicios de soldadura especializada incluyen:
 
     • Soldadura MIG/TIG/Arco
+    • Pruebas con liquidos penetrales 
     • Reparación estructural
     • Refuerzo de componentes
     • Modificaciones de diseño
@@ -116,8 +129,8 @@ const servicios: Servicio[] = [
   },
   {
     id: '6',
-    titulo: 'Fabricación de Trailas',
-    descripcion: 'Fabricamos trailas resistentes y de alta calidad, adaptadas a sus necesidades específicas.',
+    titulo: 'Fabricación de Botes y Trailas',
+    descripcion: 'Fabricamos piezas resistentes y de alta calidad, adaptadas a sus necesidades específicas.',
     descripcionLarga: `Fabricación personalizada de trailas para el transporte seguro de maquinaria pesada:
 
     • Diseño personalizado
@@ -137,13 +150,32 @@ const servicios: Servicio[] = [
   }
 ];
 
+const IconComponent = (iconName: string) => {
+  switch (iconName) {
+    case 'wrench':
+      return <Wrench className="h-6 w-6 text-white" />;
+    case 'truck':
+      return <Truck className="h-6 w-6 text-white" />;
+    case 'settings':
+      return <Settings className="h-6 w-6 text-white" />;
+    case 'hard-hat':
+      return <HardHat className="h-6 w-6 text-white" />;
+    case 'pen-tool':
+      return <Tool className="h-6 w-6 text-white" />;
+    case 'gauge':
+      return <Gauge className="h-6 w-6 text-white" />;
+    default:
+      return <Tool className="h-6 w-6 text-white" />;
+  }
+};
+
 export default function Servicios() {
   const [selectedService, setSelectedService] = useState<Servicio | null>(null);
 
   return (
-    <div className="py-12">
+    <div className="py-12 bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -163,7 +195,7 @@ export default function Servicios() {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ 
+              whileHover={{
                 scale: 1.03,
                 transition: { duration: 0.2 }
               }}
@@ -191,9 +223,16 @@ export default function Servicios() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">{servicio.titulo}</h3>
+                <div className="flex items-center mb-4">
+                  <div className="bg-red-600 p-2 rounded-md">
+                    {IconComponent(servicio.icono)}
+                  </div>
+                  <h3 className="ml-4 text-xl font-semibold text-gray-900">
+                    {servicio.titulo}
+                  </h3>
+                </div>
                 <p className="text-gray-600 mb-4">{servicio.descripcion}</p>
-                <motion.div 
+                <motion.div
                   className="flex items-center text-red-600 font-medium group"
                   whileHover={{ x: 5 }}
                   transition={{ duration: 0.2 }}

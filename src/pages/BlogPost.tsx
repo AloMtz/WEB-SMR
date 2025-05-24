@@ -18,38 +18,38 @@ const blogPosts: BlogPostType[] = [
         excerpt:
             'Conoce cómo enviamos cuadrillas de emergencia a distintos estados de México para rescatar maquinaria pesada volcada y garantizar la continuidad de las operaciones.',
         content: `
-        <p>Recientemente, nuestro equipo recibió una llamada de auxilio desde un proyecto ubicado en una zona desértica del norte de México. Un tractor se había volcado debido a las condiciones del terreno, lo que representaba un riesgo tanto para la maquinaria como para la seguridad de los operadores. De inmediato, organizamos una cuadrilla de rescate especializada y nos trasladamos hasta el lugar para evaluar la situación.</p>
+        <p>Recientemente, nuestro equipo recibió una llamada de auxilio desde un proyecto ubicado en una zona desértica del norte de México. Un tractor se había volcado debido a las condiciones del terreno, lo que representaba un riesgo tanto para la maquinaria como para la seguridad de los operadores. De inmediato, organizamos una cuadrilla de rescate especializada y nos trasladamos hasta el lugar para evaluar la situación y realizar el rescate de manera segura y cumpiendo los protocolos de de seguridad de la Mina Peñasquito.</p>
 
         <h2>La importancia de la respuesta rápida</h2>
         <p>Actuar con prontitud en casos como estos es esencial. Cada minuto que pasa puede incrementar los daños en la maquinaria, así como los costos asociados a la detención de la obra. Por ello, contamos con un equipo de técnicos altamente capacitados y equipados con las herramientas necesarias para llevar a cabo rescates de maquinaria pesada en cualquier parte del país.</p>
 
         <h2>El proceso de rescate</h2>
-        <p>Para enderezar la excavadora volcada, fue necesario utilizar varias máquinas de apoyo, entre ellas bulldozers y grúas especiales. El proceso incluyó:</p>
+        <p>Para recuperar la estabilidad del tractor volcado, fue necesario el apoyo de dos bulldozer.. El proceso incluyó:</p>
         <ol>
-            <li>Evaluación de la estabilidad del terreno y cálculo del peso de la excavadora</li>
-            <li>Coordinación con el personal local para despejar el área y asegurar el perímetro</li>
-            <li>Colocación de cables y arneses de alta resistencia para sujetar la excavadora</li>
-            <li>Sincronización de la fuerza de tracción y elevación para enderezar la maquinaria</li>
+            <li>Evaluación de la estabilidad del terreno y cálculo del peso del tractor</li>
+            <li>Coordinación con el personal en sitio para liberacio del área y asegurar el perímetro</li>
+            <li>Colocación de estrobos de alta resistencia en puntos seguros para sujetar el tractor</li>
+            <li>Sincronización de la fuerza de tracción y elevación para recuperar el centro de gravedad de la máquina</li>
         </ol>
-        <p>Durante todo el procedimiento, se tomaron las medidas de seguridad necesarias para proteger a nuestro equipo y al personal local. Afortunadamente, pudimos completar el rescate sin incidentes y con daños mínimos a la excavadora.</p>
+        <p>Durante todo el proceso, se tomaron las medidas de seguridad necesarias para proteger a nuestro equipo y al personal en sitio. Afortunadamente, pudimos completar el rescate sin incidentes y con daños mínimos.</p>
 
         <h2>Galería de imágenes</h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
             <figure style="text-align: center;">
             <img src=${PostImage7} alt="Bulldozers y maquinaria coordinando el rescate" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;" />
-            <figcaption style="margin-top: 8px; font-size: 14px; color: #555;">Maquinaria pesada coordinándose para enderezar la excavadora.</figcaption>
+            <figcaption style="margin-top: 8px; font-size: 14px; color: #555;">Maquinaria pesada coordinándose para enderezar el tractor.</figcaption>
             </figure>
             <figure style="text-align: center;">
-            <img src=${PostImage3} alt="Excavadora volcada en el desierto" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;" />
-            <figcaption style="margin-top: 8px; font-size: 14px; color: #555;">La excavadora volcada debido a las condiciones del terreno.</figcaption>
+            <img src=${PostImage3} alt="Tractor volcado en el desierto" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;" />
+            <figcaption style="margin-top: 8px; font-size: 14px; color: #555;">El tractor volcado debido a las condiciones del terreno.</figcaption>
             </figure>
             <figure style="text-align: center;">
             <img src=${PostImage4} alt="Operarios asegurando cables y arneses" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;" />
             <figcaption style="margin-top: 8px; font-size: 14px; color: #555;">Operarios asegurando los cables y arneses para el rescate.</figcaption>
             </figure>
             <figure style="text-align: center;">
-            <img src=${PostImage5} alt="Excavadora levantada tras el rescate" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;" />
-            <figcaption style="margin-top: 8px; font-size: 14px; color: #555;">La excavadora finalmente enderezada y lista para continuar su operación.</figcaption>
+            <img src=${PostImage5} alt="Tractor levantado tras el rescate" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;" />
+            <figcaption style="margin-top: 8px; font-size: 14px; color: #555;">Tractor finalmente enderezado y listo para continuar su operación.</figcaption>
             </figure>
         </div>
 
@@ -59,7 +59,7 @@ const blogPosts: BlogPostType[] = [
             <source src=${PostVideo1} type="video/mp4" />
             Tu navegador no soporta la reproducción de video.
             </video>
-            <p style="margin-top: 16px; font-size: 16px; color: #555;">En el video anterior, se puede observar el proceso paso a paso, desde la preparación de la maquinaria de apoyo hasta el levantamiento final de la excavadora. Este tipo de intervenciones rápidas forman parte de nuestro compromiso de ofrecer asistencia y mantenimiento a la maquinaria pesada donde y cuando más se necesite.</p>
+            <p style="margin-top: 16px; font-size: 16px; color: #555;">En el video anterior, se puede observar el proceso paso a paso, desde la preparación de la maquinaria de apoyo hasta el levantamiento final del tractor. Este tipo de intervenciones rápidas forman parte de nuestro compromiso de ofrecer asistencia y mantenimiento a la maquinaria pesada donde y cuando más se necesite.</p>
         </div>
     `,
         featuredImage: PostImage1,
